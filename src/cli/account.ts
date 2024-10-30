@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import { Command } from "commander";
 
-import { Exchange } from "./lib/exchange";
+import { Exchange } from "../lib/exchange";
 
 dotenv.config({
     path:

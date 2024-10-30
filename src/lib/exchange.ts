@@ -27,11 +27,20 @@ export class Exchange {
         this.hyperliquid.checkRequiredCredentials();
     }
 
-    static get(useTestnet: boolean): Exchange {
+    static get(
+        useTestnet: boolean,
+        credentials?: { account: `0x{string}`; privateKey: `0x{string}` }
+    ): Exchange {
         if (!this.instance[useTestnet ? 0 : 1]) {
+            if (!credentials) {
+                credentials = {
+                    account: process.env.NEXT_PUBLIC_ADDRESS as `0x{string}`,
+                    privateKey: process.env
+                        .NEXT_PUBLIC_PRIVATE_KEY as `0x{string}`,
+                };
+            }
             this.instance[useTestnet ? 0 : 1] = new Exchange({
-                account: process.env.ADDRESS as `0x{string}`,
-                privateKey: process.env.PRIVATE_KEY as `0x{string}`,
+                ...credentials,
                 isTestnet: useTestnet,
             });
         }
