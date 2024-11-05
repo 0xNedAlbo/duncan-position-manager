@@ -62,7 +62,7 @@ export async function POST(
         abi: vaultAbi,
     });
     let symbol = (await contract.read.symbol()) as string;
-    symbol = symbol.replace(/^s\dx/, "");
+    symbol = symbol.replace(/^s\dx/, "").replace(/^\dsx/, "");
     const decimals = (await contract.read.decimals()) as number;
 
     const exchange = Exchange.get(false, {
